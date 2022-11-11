@@ -35,7 +35,7 @@ current = catch_label()
         
         
 def set_status():
-    api.status.set(text="Translation from Yandex Music: "+catch_label()+"\n\nGitHub: https://github.com/Kelthic/yandex-music-to-vkontakte-status")
+    api.status.set(text="Translation from Yandex Music: "+current+"\n\nGitHub: https://github.com/Kelthic/yandex-music-to-vkontakte-status")
     sleep(60)
 
 while True:
