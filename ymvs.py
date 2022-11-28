@@ -2,12 +2,11 @@ import vk_api
 import yandex_music
 from time import sleep
 
-VK = VKTOKENENV
+VK = VKENV
 
-Yandex = YANDEXTOKENENV
+Yandex = YANDEXENV
 
 client = yandex_music.Client(Yandex).init()
-
 api = vk_api.VkApi(token=VK).get_api()
 
 def catch_track():
@@ -29,14 +28,15 @@ def catch_label():
         return f"{artists} - {title}"
     except Exception as e:
         return 'Unknown track'
-
-    
+   
 current = catch_label()
-        
+vk_status = api.status.get()       
         
 def set_status():
-    api.status.set(text="Translation from Yandex Music: "+catch_label()+"\n\nGitHub: https://github.com/Kelthic/yandex-music-to-vkontakte-status")
-    sleep(60)
+    if vk_status == current:
+        sleep(5)
+    else:
+        api.status.set(text="Translation from Yandex Music: "+catch_label()+"\n\nGitHub: https://github.com/Kelthic/yandex-music-to-vkontakte-status")
 
 while True:
    if catch_label() != current: 
